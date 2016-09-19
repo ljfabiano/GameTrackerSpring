@@ -22,8 +22,11 @@ public class GameTrackerController {
     @Autowired
     UserRepository users;
 
+    @RequestMapping(path = "/games", method = RequestMethod.GET)
+    public String games(Model model, HttpSession session) {
+        return "games";
+    }
 
-    //
 @RequestMapping(path = "/", method = RequestMethod.GET)
 public String home(Model model, HttpSession session, String genre, Integer releaseYear){//notice NOT an integer(int), but an Integer so it can be null rather than 0 initially. Using the Boxed type vs the primitive type
 
@@ -51,7 +54,7 @@ public String home(Model model, HttpSession session, String genre, Integer relea
     return "home";
 }
 
-    @RequestMapping(path = "/add-game", method = RequestMethod.POST)
+    @RequestMapping(path = "/add-game", method = RequestMethod.POST)//post submits data to be processed to a specified resource
     public String addGame(HttpSession session, String gameName, String gamePlatform, String gameGenre, int gameYear) {
         User user = (User) session.getAttribute("user");
         Game game = new Game(gameName, gamePlatform, gameGenre, gameYear, user);//entity
@@ -60,7 +63,7 @@ public String home(Model model, HttpSession session, String genre, Integer relea
         return "redirect:/";
     }
 
-    @RequestMapping(path = "/searchByName", method = RequestMethod.GET)
+    @RequestMapping(path = "/searchByName", method = RequestMethod.GET)//get requests data from a specified resource
     public String queryGamesByName(Model model, String search) {
         System.out.println("Searching by ..." + search);
         List<Game> gameList = games.findByNameStartsWith(search);
