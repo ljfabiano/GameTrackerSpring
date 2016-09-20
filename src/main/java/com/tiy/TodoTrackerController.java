@@ -22,7 +22,7 @@ public class TodoTrackerController {
     @Autowired
     UserRepository users;
 
-    @RequestMapping(path = "/todos", method = RequestMethod.GET)
+    @RequestMapping(path = "/todos", method = RequestMethod.GET)//the login page, and the todo page is all we are using here for the assignment, the add, toggle, and delete, and the find all method
     public String todos(Model model, HttpSession session) {
         return "todos";
     }

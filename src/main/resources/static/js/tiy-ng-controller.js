@@ -53,7 +53,7 @@ angular.module('TIYAngularApp', [])
         $scope.addTodo = function() {
             console.log("About to add the following todo " + JSON.stringify($scope.newTodo));
 
-            $http.post("/addTodo.json", $scope.newTodo)
+            $http.post("/addTodo.json", $scope.newTodo)//This is how we connect to front end, and how they send stuff to back end
                 .then(
                     function successCallback(response) {
                         console.log(response.data);
