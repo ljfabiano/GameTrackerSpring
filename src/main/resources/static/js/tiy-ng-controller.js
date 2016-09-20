@@ -2,7 +2,7 @@ angular.module('TIYAngularApp', [])
    .controller('SampleController', function($scope, $http) {
         $scope.name = "James";
 
-        $scope.newGame = {};
+        $scope.newTodo = {};
 
         $scope.whateverIWantToComeUpWith = "Isn't that something...";
 
@@ -13,16 +13,16 @@ angular.module('TIYAngularApp', [])
         $scope.testVar.anotherSample = 12;
         $scope.testVar.flagExample = false;
 
-        $scope.getGames = function() {
+        $scope.getTodos = function() {
                console.log("About to go get me some data!");
                $scope.name = "JavaScript Master Guru";
 
-               $http.get("http://localhost:8080/games.json")
+               $http.get("http://localhost:8080/todos.json")
                    .then(
                        function successCallback(response) {
                            console.log(response.data);
                            console.log("Adding data to scope");
-                           $scope.games = response.data;
+                           $scope.todos = response.data;
                        },
                        function errorCallback(response) {
                            console.log("Unable to get data");
@@ -30,35 +30,35 @@ angular.module('TIYAngularApp', [])
                        console.log("Done with the promise - waiting for the callback");
                 };
 
-                        $scope.toggleGame = function(gameID) {
-                            console.log("About to toggle game with ID " + gameID);
+                        $scope.toggleTodo = function(todoID) {
+                            console.log("About to toggle todo with ID " + todoID);
 
-                            $http.get("/toggleGame.json?gameID=" + gameID)
+                            $http.get("/toggleTodo.json?todoID=" + todoID)
                                 .then(
                                     function success(response) {
                                         console.log(response.data);
-                                        console.log("Game toggled");
+                                        console.log("Todo toggled");
 
-                                        $scope.games = {};
+                                        $scope.todos = {};
 
-                                        alert("About to refresh the games on the scope");
+                                        alert("About to refresh the todos on the scope");
 
-                                        $scope.games = response.data;
+                                        $scope.todos = response.data;
                                     },
                                     function error(response) {
-                                        console.log("Unable to toggle game");
+                                        console.log("Unable to toggle todo");
                                     });
                         };
 
-        $scope.addGame = function() {
-            console.log("About to add the following game " + JSON.stringify($scope.newGame));
+        $scope.addTodo = function() {
+            console.log("About to add the following todo " + JSON.stringify($scope.newTodo));
 
-            $http.post("/addGame.json", $scope.newGame)
+            $http.post("/addTodo.json", $scope.newTodo)
                 .then(
                     function successCallback(response) {
                         console.log(response.data);
                         console.log("Adding data to scope");
-                        $scope.games = response.data;
+                        $scope.todos = response.data;
                     },
                     function errorCallback(response) {
                         console.log("Unable to get data");
